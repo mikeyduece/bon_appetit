@@ -1,3 +1,4 @@
+require './lib/recipe'
 class Pantry
   attr_reader :stock, :cookbook
 
@@ -39,19 +40,17 @@ class Pantry
 
   def what_can_i_make
     things = []
-    # if the stock values >= nested values of cookbook
-    # && stock key matches cookbook nested key
-    # return cookbook key
-    cookbook.values.each do |ing|
-      ing.each_pair do |key_1,value_1|
-        stock.each_pair do |key, value|
-          if key_1 == key && value >= value_1
-            things << cookbook.key(ing)
+    cookbook.each do |item, ing|
+      stock.each_pair do |key,val|
+        ing.each do |k,v|
+          if k==key && val >=v
+            things << item
           end
         end
       end
+      #i want to use the recipe.amount_required
     end
-    things.uniq[1..2]
+    things
   end
 
 end
