@@ -26,11 +26,14 @@ class PantryTest < Minitest::Test
     pantry.restock("Cheese",10)
     assert_equal 10, pantry.stock_check("Cheese")
   end
+
+  def test_can_restock_more
+    pantry.restock("Cheese",10)
+    pantry.restock("Cheese", 20)
+    assert_equal 30, pantry.stock_check("Cheese")
+
+  end
 end
-# pantry.restock("Cheese", 10)
-# pantry.stock_check("Cheese")
-# # => 10
-#
 # pantry.restock("Cheese", 20)
 # pantry.stock_check("Cheese")
 # # => 30
@@ -135,3 +138,4 @@ end
 #     "Flour"          => [{quantity: 5, units: "Centi-Units"},
 #                          {quantity: 50, units: "Universal Units"}]}
 # ```
+#
