@@ -36,4 +36,8 @@ class Pantry
   def add_to_cookbook(recipe)
     cookbook[recipe.name] = recipe.ingredients
   end
+
+  def what_can_i_make
+  end
+
 end
