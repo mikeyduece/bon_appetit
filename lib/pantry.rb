@@ -38,6 +38,20 @@ class Pantry
   end
 
   def what_can_i_make
+    things = []
+    # if the stock values >= nested values of cookbook
+    # && stock key matches cookbook nested key
+    # return cookbook key
+    cookbook.values.each do |ing|
+      ing.each_pair do |key_1,value_1|
+        stock.each_pair do |key, value|
+          if key_1 == key && value >= value_1
+            things << cookbook.key(ing)
+          end
+        end
+      end
+    end
+    things.uniq[1..2]
   end
 
 end
