@@ -23,7 +23,8 @@ class PantryTest < Minitest::Test
   end
 
   def test_pantry_can_be_restocked
-
+    pantry.restock("Cheese",10)
+    assert_equal 10, pantry.stock_check("Cheese")
   end
 end
 # pantry.restock("Cheese", 10)

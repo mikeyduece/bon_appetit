@@ -8,4 +8,8 @@ class Pantry
   def stock_check(item)
     stock[item]
   end
+
+  def restock(item, amt)
+    stock[item] += amt
+  end
 end
