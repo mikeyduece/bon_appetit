@@ -1,8 +1,9 @@
 class Pantry
-  attr_reader :stock
+  attr_reader :stock, :cookbook
 
   def initialize
     @stock = Hash.new(0)
+    @cookbook = {}
   end
 
   def stock_check(item)
@@ -14,8 +15,7 @@ class Pantry
   end
 
   def convert_units(r)
-    ingredients = r.ingredients
-    ingredients.reduce({}) do |result, (ing,amt)|
+    r.ingredients.reduce({}) do |result, (ing,amt)|
       result.store(ing, conversion(amt))
       result
     end
@@ -30,12 +30,10 @@ class Pantry
     else
       output = {quantity: amt,units: "Universal Units"}
     end
-    # case amt
-    # when (amt > 100) then output = {quantity: (amt/100).to_i, units: "Centi-Units" }
-    # when (amt < 1)   then output = {quantity: (amt*1000).to_i, units: "Milli-Units"}
-    # else
-    #   output = {quantity: amt, units: "Universal Units"}
-    # end
     output
+  end
+
+  def add_to_cookbook(recipe)
+    cookbook[recipe.name] = recipe.ingredients
   end
 end

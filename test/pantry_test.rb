@@ -44,35 +44,26 @@ class PantryTest < Minitest::Test
                 "Flour"          => {quantity: 5, units: "Centi-Units"}}
     assert_equal expected, pantry.convert_units(r)
   end
+
+  def test_can_recommend_recipe
+    r1 = Recipe.new("Cheese Pizza")
+    r1.add_ingredient("Cheese", 20)
+    r1.add_ingredient("Flour", 20)
+    pantry.add_to_cookbook(r1)
+
+    r2 = Recipe.new("Brine Shot")
+    r2.add_ingredient("Brine", 10)
+    pantry.add_to_cookbook(r2)
+    require "pry"; binding.pry
+    r3 = Recipe.new("Peanuts")
+    r3.add_ingredient("Raw nuts", 10)
+    r3.add_ingredient("Salt", 10)
+    pantry.add_to_cookbook(r3)
+
+    pantry.what_can_i_make # => ["Brine Shot", "Peanuts"]
+
+  end
 end
-# * Centi-Units -- Equals 100 Universal Units
-# * Milli-Units -- Equals 1/1000 Universal Units
-#
-# Then, we'll add a new method, `convert_units`, which takes a `Recipe` and outputs updated units for it following these rules:
-#
-# 1. If the recipe calls for more than 100 Units of an ingredient, convert it to Centi-units
-# 2. If the recipe calls for less than 1 Units of an ingredient, convert it to Milli-units
-#
-# Follow this interaction pattern:
-#
-# ```ruby
-# # Building our recipe
-# r = Recipe.new("Spicy Cheese Pizza")
-# r.add_ingredient("Cayenne Pepper", 0.025)
-# r.add_ingredient("Cheese", 75)
-# r.add_ingredient("Flour", 500)
-#
-# pantry = Pantry.new
-#
-# # Convert units for this recipe
-#
-# pantry.convert_units(r)
-#
-# => {"Cayenne Pepper" => {quantity: 25, units: "Milli-Units"},
-#     "Cheese"         => {quantity: 75, units: "Universal Units"},
-#     "Flour"          => {quantity: 5, units: "Centi-Units"}}
-# ```
-#
 # ### Iteration 3: What Can I Make?
 #
 # Add a feature to your pantry that can recommend recipes for us to cook based on what
