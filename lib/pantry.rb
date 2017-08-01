@@ -41,16 +41,17 @@ class Pantry
   def what_can_i_make
     things = []
     cookbook.each do |item, ing|
-      stock.each_pair do |key,val|
-        ing.each do |k,v|
-          if k==key && val >=v
+      ing.each_pair do |k,v|
+        stock.each_pair do |key,val|
+          if k==key && val >= v
             things << item
           end
+          require "pry"; binding.pry
         end
       end
       #i want to use the recipe.amount_required
     end
-    things
+    things.uniq
   end
 
 end
